@@ -3,6 +3,8 @@ package com.axiom.gameengine.main;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import com.axiom.gameengine.main.Scene.*;
+
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -70,8 +72,11 @@ public class Renderer implements Runnable {
 			
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the frame buffer
 
-			glfwSwapBuffers(WindowID); // swap the color buffers
+			Game.scene.draw();
 
+			glfwSwapBuffers(WindowID); // swap the color buffers
+			
+			
 			// Poll for window events. The key callback above will only be
 			// invoked during this call.
 			glfwPollEvents();

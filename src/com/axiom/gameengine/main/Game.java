@@ -1,6 +1,11 @@
 package com.axiom.gameengine.main;
 
+import com.axiom.gameengine.Utils.*;
+import com.axiom.gameengine.main.Scene.*;
+
 public class Game implements Runnable{
+	
+	public static Scene scene;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -19,18 +24,34 @@ public class Game implements Runnable{
 
 	@Override
 	public void run() {
+		long lastTime = System.nanoTime();
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+		init();
 		while (running) {
+			Long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			Time.deltaTime = (now - lastTime) / ns;
+			lastTime = now;
+			while(delta >= 1) {
+				Time.fixedDeltaTime = delta;
+				fixedUpdate();
+				delta--;
+			}
 			update();
-			render();
 		}
+	}
+	
+	public void init() {
+		scene.init();
 	}
 
 	private void update() {
-
+		scene.update();
 	}
-
-	private void render() {
-
+	
+	private void fixedUpdate() {
+		scene.fixedUpdate();
 	}
 	
 	public void stop() {

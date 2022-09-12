@@ -1,8 +1,6 @@
 package com.axiom.gameengine.main;
 
 public class Application {
-	
-	
 	//Protected variables
 	protected Renderer renderer;
 	protected Game game;

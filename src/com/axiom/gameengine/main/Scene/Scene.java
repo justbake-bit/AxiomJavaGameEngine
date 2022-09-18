@@ -2,12 +2,17 @@ package com.axiom.gameengine.main.Scene;
 
 import java.util.*;
 
+import com.axiom.gameengine.Renderer.*;
+
 public class Scene {
 
+	public static Camera camera;
+	
 	private List<GameObject> objects;
 
 	public Scene() {
 		objects = new ArrayList<>();
+		camera = new Camera();
 	}
 
 	public void init() {

@@ -27,7 +27,6 @@ public class Game implements Runnable{
 		long lastTime = System.nanoTime();
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
-		init();
 		while (running) {
 			Long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -40,10 +39,6 @@ public class Game implements Runnable{
 			}
 			update();
 		}
-	}
-	
-	public void init() {
-		scene.init();
 	}
 
 	private void update() {

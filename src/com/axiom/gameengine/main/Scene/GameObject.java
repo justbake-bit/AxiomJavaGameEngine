@@ -2,6 +2,9 @@ package com.axiom.gameengine.main.Scene;
 
 import java.util.*;
 
+import com.axiom.gameengine.Renderer.*;
+import com.axiom.gameengine.main.Scene.Components.*;
+
 public class GameObject {
 
 	public String name;
@@ -9,6 +12,8 @@ public class GameObject {
 	public Scene scene;
 	public GameObject parent = null;
 
+	public Transform transform;
+	
 	private boolean _isActive = true;
 	private boolean _shouldRemove = false;
 
@@ -105,14 +110,17 @@ public class GameObject {
 		_shouldRemove = true;
 	}
 
-	public <T extends Component> Component getComponent(T component) {
+	@SuppressWarnings("unchecked")
+	public <T extends Component> T getComponent(Class<T> cls) {
 		for (Component c : components) {
-			if (c.getClass().equals(component.getClass()))
-				return c;
+			if(c.getClass() == cls) {
+				return (T)c; 
+			}
 		}
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T extends Component> List<T> getComponents(T component) {
 		List<T> componenetsOfTypeT = new LinkedList<>();
 		for (Component c : components) {
@@ -132,6 +140,7 @@ public class GameObject {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T extends Component> List<T> getComponentsInChildren(T component) {
 		List<T> componenetsOfTypeT = new LinkedList<>();
 		for (GameObject gameObject : children) {
@@ -162,6 +171,15 @@ public class GameObject {
 	}
 
 	public void addComponent(Component component) {
+		if(component.getClass().isAnnotationPresent(RequireComponent.class)) {
+			RequireComponent rc = component.getClass().getAnnotation(RequireComponent.class);
+			for(Class<? extends Component> cls : rc.classes()) {
+				if(getComponent(cls) == null) {
+					throw new IllegalStateException("Game object requires component of type: " + cls);
+				}
+			}
+		}
+		component.gameObject = this;
 		components.add(component);
 	}
 

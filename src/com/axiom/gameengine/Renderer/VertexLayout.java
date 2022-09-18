@@ -4,8 +4,8 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class VertexLayout {
 	
-	public final Layout[] layouts;
-	public final float[] data;
+	private final Layout[] layouts;
+	private final float[] data;
 
 	public VertexLayout(Layout[] layouts, float[] data) {
 		this.layouts = layouts;
@@ -49,5 +49,15 @@ public class VertexLayout {
 		}
 		return size;
 	}
+
+	public Layout[] getLayouts() {
+		return layouts;
+	}
+
+	public float[] getData() {
+		return data;
+	}
+	
+	
 
 }

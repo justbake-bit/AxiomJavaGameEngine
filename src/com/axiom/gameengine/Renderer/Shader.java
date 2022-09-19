@@ -34,6 +34,8 @@ public abstract class Shader {
 
 	private static final String TYPE_STRING = "#type";
 	private static final String TYPE_REGEX = "(#type)( )+([a-zA-Z]+)";
+	
+	public Transform transform;
 
 	protected Map<ShaderType, String> shaders;
 

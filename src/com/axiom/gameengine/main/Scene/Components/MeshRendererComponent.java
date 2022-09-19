@@ -16,6 +16,7 @@ public class MeshRendererComponent extends Component {
 
 	@Override
 	public void draw() {
+		material.shader.transform = this.gameObject.transform;
 		material.Use();
 		if (meshFilterComponent.mesh != null)
 			meshFilterComponent.mesh.draw();

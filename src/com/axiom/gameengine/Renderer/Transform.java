@@ -19,7 +19,6 @@ public class Transform {
 	private Vector3f right;
 	
 	public Vector3f position;
-	
 	public Vector3f rotation;
 	public Vector3f scale;
 
@@ -31,9 +30,7 @@ public class Transform {
 	
 	public Vector3f front() {
 		front = Forwards;
-		Quaternionf rot = new Quaternionf();
-		rot.rotateXYZ((float)Math.toRadians(rotation.x), (float)Math.toRadians(rotation.y), (float)Math.toRadians(rotation.z));
-		front.rotate(rot);
+		//front.rotate(rotation);
 		return front.normalize();
 	}
 	
@@ -45,6 +42,17 @@ public class Transform {
 	public Vector3f up() {
 		up = right().cross(front());
 		return up;
+	}
+	
+	public void setPositon(float x, float y, float z) {
+		this.position = new Vector3f(x, y, z);
+	}
+	
+	public Matrix4f getTransformationMatrix() {
+		Matrix4f matrix = new Matrix4f().identity();
+		matrix.translate(position);
+		matrix.rotate(Math.toRadians(rotation.x), Math.toRadians(rotation.y));
+		return matrix;
 	}
 
 }

@@ -29,6 +29,7 @@ public class GLShader extends Shader {
 		if (id == NULL)
 			compile();
 		glUseProgram(id);
+		setMatrix4f("transform", transform.getTransformationMatrix());
 		setMatrix4f("view", Scene.camera.getViewMatrix());
 		setMatrix4f("projection", Scene.camera.getProjectionMatrix());
 	}
@@ -139,6 +140,7 @@ public class GLShader extends Shader {
 	public void setMatrix4f(String location, Matrix4f value) {
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 		value.get(buffer);
+		buffer.flip();
 		glUniformMatrix4fv(getUniformLocation(location), false, buffer);
 	}
 	

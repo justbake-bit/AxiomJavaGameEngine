@@ -60,7 +60,6 @@ public class Mesh {
 
 		vertexLayout.enableAttributeArrays();
 
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, vertexLayout.getData().length, GL_UNSIGNED_INT, 0);
 
 		vertexLayout.disableAttributeArrays();

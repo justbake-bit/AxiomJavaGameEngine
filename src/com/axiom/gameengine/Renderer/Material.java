@@ -2,7 +2,7 @@ package com.axiom.gameengine.Renderer;
 
 public class Material {
 
-	Shader shader;
+	public Shader shader;
 	
 	public Material() {
 		shader = new GLShader();

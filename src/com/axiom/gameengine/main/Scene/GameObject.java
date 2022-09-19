@@ -22,6 +22,7 @@ public class GameObject {
 
 	public GameObject(String name) {
 		this.name = name;
+		transform = new Transform();
 		components = new ArrayList<>();
 		children = new ArrayList<>();
 	}
